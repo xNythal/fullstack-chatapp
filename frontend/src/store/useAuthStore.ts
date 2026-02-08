@@ -4,7 +4,7 @@ import toast from 'react-hot-toast'
 import axios from 'axios'
 import { type Socket, io } from 'socket.io-client'
 const BASE_URL =
-  import.meta.env.MODE === 'development' ? 'http://localhost:5174' : '/'
+  import.meta.env.MODE === 'development' ? 'http://192.168.1.50:5174' : '/'
 
 interface AuthState {
   authUser: any | null

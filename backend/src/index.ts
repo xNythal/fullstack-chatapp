@@ -15,7 +15,11 @@ app.use(express.json({ limit: '5mb' }))
 app.use(cookieParser())
 app.use(
   cors({
-    origin: 'http://localhost:5173',
+    origin: [
+      'http://localhost:5173',
+      'http://localhost:5174',
+      'http://192.168.1.50:5173',
+    ],
     credentials: true,
   }),
 )
@@ -25,12 +29,12 @@ app.use('/api/messages', messageRoutes)
 
 if (process.env.NODE_ENV) {
   app.use(express.static(path.join(__dirname, '../frontend/dist')))
-  app.get('*', (req, res) => {
+  app.get('/*splat', (req, res) => {
     res.sendFile(path.join(__dirname, '../frontend/dist/index.html'))
   })
 }
 
-server.listen(PORT, () => {
+server.listen({ host: '0.0.0.0', port: PORT }, () => {
   console.log(`app is running on port: ${PORT}`)
   connectDB()
 })
